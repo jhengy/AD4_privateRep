@@ -7,7 +7,8 @@ import java.util.List;
  * {@code AddressBook} that keeps track of its own history.
  */
 public class VersionedAddressBook extends AddressBook {
-
+    // note VersionedAddressBook also contains persons(UniquePersonList), just as its superclass
+    // it's a list of list of Persons
     private final List<ReadOnlyAddressBook> addressBookStateList;
     private int currentStatePointer;
 
@@ -24,8 +25,8 @@ public class VersionedAddressBook extends AddressBook {
      * Undone states are removed from the state list.
      */
     public void commit() {
-        removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new AddressBook(this));
+        removeStatesAfterCurrentPointer(); //remove all states(in the form of persons list) after the currentPointer, so that currentPointer will be flushed to the personlist at the point of commit
+        addressBookStateList.add(new AddressBook(this)); // add a new AddressBook instance with updated hidden attribute persons : UniquePersonList, a field inherited from superclass
         currentStatePointer++;
     }
 
@@ -41,7 +42,7 @@ public class VersionedAddressBook extends AddressBook {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        resetData(addressBookStateList.get(currentStatePointer));
+        resetData(addressBookStateList.get(currentStatePointer));// simply changing the persons list to the prev pointer
     }
 
     /**

@@ -23,13 +23,13 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
-     * Parses {@code s} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
-     * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
+     * Parses {@code string} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     *      * trimmed.
+     *      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
-    public static String parseString(String s) {
-        String string = s.trim();
-        return string;
+    public static String parseString (String string) {
+        String trimmedString = string.trim();
+        return trimmedString;
     }
 
 

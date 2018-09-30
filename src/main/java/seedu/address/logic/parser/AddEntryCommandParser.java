@@ -1,17 +1,22 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SECTION_TYPE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBHEADER;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAGS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TITLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Set;
 import java.util.stream.Stream;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEntryCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.entry.MajorEntry;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 public class AddEntryCommandParser implements Parser<AddEntryCommand>{
@@ -22,23 +27,22 @@ public class AddEntryCommandParser implements Parser<AddEntryCommand>{
      */
     public AddEntryCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_SECTION_TYPE, PREFIX_TAGS, PREFIX_TITLE, PREFIX_SUBHEADER, PREFIX_DURATION);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_SECTION_TYPE, PREFIX_TITLE, PREFIX_SUBHEADER, PREFIX_DURATION, PREFIX_TAGS)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEntryCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        String sectionType = ParserUtil.parseString(argMultimap.getValue(PREFIX_SECTION_TYPE).get());
-        String header = ParserUtil.parseString(argMultimap.getValue(PREFIX_TITLE).get());
-        String subHeader = ParserUtil.parseString(argMultimap.getValue(PREFIX_SUBHEADER).get());
-        String duration = ParserUtil.parseString(argMultimap.getValue(PREFIX_DURATION).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAGS));
+        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
+        Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
+        Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        // v1.1 only allows addition of major entry, other types of entry addition to be released in future stages
-        MajorEntry entry = new MajorEntry(sectionType, header, subHeader, duration, tagList);
+        Person person = new Person(name, phone, email, address, tagList);
 
-        return new AddEntryCommand(entry);
+        return new AddEntryCommand(person);
     }
 
     /**

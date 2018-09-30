@@ -16,6 +16,7 @@ import java.util.Optional;
 public class ArgumentMultimap {
 
     /** Prefixes mapped to their respective arguments**/
+    // value is in the form of a list of Strings as a prefix may be used multiple times by the user, i.e. t/
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
 
     /**
@@ -40,7 +41,7 @@ public class ArgumentMultimap {
     }
 
     /**
-     * Returns all values of {@code prefix}.
+     * Returns all values of {@code prefix}. --> this is especially useful for returning tags
      * If the prefix does not exist or has no values, this will return an empty list.
      * Modifying the returned list will not affect the underlying data structure of the ArgumentMultimap.
      */

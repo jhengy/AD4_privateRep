@@ -3,7 +3,6 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.entry.MajorEntry;
 import seedu.address.model.person.Person;
 
 /**
@@ -23,8 +22,6 @@ public interface Model {
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
     boolean hasPerson(Person person);
-
-    boolean hasEntry(MajorEntry entry);
 
     /**
      * Deletes the given person.
