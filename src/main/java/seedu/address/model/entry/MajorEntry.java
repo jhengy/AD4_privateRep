@@ -12,8 +12,8 @@ public class MajorEntry extends Entry {
     private String subHeader;
     private String duration;
 
-    public MajorEntry(String sectionType, String subHeader, String title, String duration, ListDescription description, Set<Tag> tags) {
-        super(sectionType, description, tags);
+    public MajorEntry(String sectionType, String subHeader, String title, String duration, Set<Tag> tags) {
+        super(sectionType, tags);
         this.duration = duration;
         this.title = title;
         this.subHeader = subHeader;

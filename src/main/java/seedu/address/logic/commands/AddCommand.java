@@ -43,7 +43,7 @@ public class AddCommand extends Command {
      * Creates an AddCommand to add the specified {@code Person}
      */
     public AddCommand(Person person) {
-        requireNonNull(person); // if the object is null throw nullpointer exception, else return the object
+        requireNonNull(person);
         toAdd = person;
     }
 
