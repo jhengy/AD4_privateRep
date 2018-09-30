@@ -1,0 +1,282 @@
+= ResuMaker - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/CS2103-AY1819S1-W17-1/main
+
+By: `CS2103-W-17-1`      Since: `August 2018`      Licence: `MIT`
+
+== Introduction
+
+ResuMaker is for *computer Science students looking for a fast and flexble way to generate their resumes*. It is especially *optimized for students at the National University of Singapore's School of Computing*. Unlike most resume generation webapps, ResuMaker can tailor your resume to fit the specific requirements of a job.  Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+
+== Quick Start
+
+.  Ensure you have Java version `9` or later installed in your Computer.
+.  Download the latest `resumaker.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
++
+image::Ui.png[width="790"]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Some example commands you can try:
+
+* *`listEntry* ~work #java`: lists all resume entries under section work and tagged as java
+* **`addEntry`**`~experience` `#java t/The Source Enterprise s/Java Programmer intern d/ May 2010 - Aug 2010`: adds an entry under section experience with assigned title, subheader and duration of internship
+* **`deleteEntry`**`3` : deletes the 3rd entry shown in the current entry list
+* *`exit`* : exits the app
+
+.  Refer to <<Features>> for details of each command.
+
+[[Features]]
+== Features
+
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `addEntry ~SECTION #TAGNAME t/TITLE, [s/SUBHEADER]`, `SECTION`, `TAGNAME`, `TITLE`  are parameters which can be used as `addEntry t/The Source Enterprise`.
+* Items in square brackets are optional e.g `t/TITLE [s/SUBHEADER]` can be used as `t/The Source Enterprise` or as `t/The Source Enterprise s/Java programmer`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters can be in any order e.g. if the command specifies `t/TITLE s/SUBHEADER`, `s/SUBHEADER T/TITLE` is also acceptable.
+====
+
+=== Viewing help : `help`
+
+Format: `help`
+
+=== Adding an entry: `addEntry`
+
+Adds a person to the address book +
+Format: `AddEntry ~SECTION [#TAG]... t/TITLE [s/SUBHEADER] d/DURATION`
+
+[TIP]
+An entry can have any number of tags (including 0)
+An entry contains description, which can be added using addDescription as a separate command
+
+Examples:
+
+* `addEntry ~experience #java t/The Source Enterprise s/Java Programmer intern d/ May 2010 - Aug 2010`
+* `addEntry ~awards #java`
+
+=== Adding a bullet point: `addDescription`
+
+Adds a bullet point under the description of an entry in the resuMaker +
+Format: `addBullet CONTENTTOADD`
+
+Examples:
+
+* `addBullet  research design and implement scalable java`
+
+=== editing a bullet point: `editDescription`
+
+edits a bullet point under the description of an entry in the resuMaker +
+Format: `editBullet INDEX EDITTEDCONTENT`
+
+Examples:
+
+* `editBullet 0  research design and implement scalable java application`
+
+
+=== Listing entries : `listEntry`
+
+list particular entries in the resuMaker. Both section and tags are optional - running with no arguments will display all entries. +
+Format: `listEntry [~SECTION] [#TAG]...`
+
+Examples:
+
+* `listEntry ~education java`
+
+=== viewing a particular entry : `vieWEntry`
+
+views a particular entry in the resuMaker.+
+Format: `vieWEntry INDEX`
+
+Examples:
+
+* `viewEntry 2`
+
+=== Editing an entry : `editEntry`
+
+Edits an existing entry in the resuMaker. +
+Format: `editEntry INDEX [t/TITLE ] [s/SUBHEADER] [d/DURATION] [t/TAG]...`
+
+****
+* Edits the entry at the specified `INDEX`. The index refers to the index number shown in the displayed entry list. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* `editEntry 1 t/ R company t/ C++` +
+edits the entry at index 1 by replacing its title as R company and replace all its tags by C++
+
+
+
+
+=== deleting an entry: `deleteEntry`
+
+Finds persons whose names contain any of the given keywords. +
+Format: `deleteEntry INDEX`
+
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* `list` +
+`delete 2` +
+Deletes the 2nd entry in the address book.
+* `list ~education` +
+`delete 1` +
+Deletes the 1st entry displayed under education section
+
+
+
+=== Creating a SoC / NUS Event (Project / Work Experience / Skill): `nus`
+Auto-populates a resume Entry based on a matching SoC / NUS Event.
+Format: `nus EVENT_NAME`
+
+[TIP]
+The `EVENT_NAME` can be an Event's full name (Mathematics and Computer Science Double Degree Programme), its acronym (math - cs ddp), or even a
+partially matching phrase (math - comp sci double deg prog)
+
+Examples:
+
+* `nus orb` +
+Creates a Project Entry for `Orbital`
+* `nus hack n roll` +
+Creates a Project Entry for `Hack n Roll`
+* `nus ta cs2040` +
+Creates a Work Experience entry for `Teaching Assistant CS2040`
+
+[NOTE]
+Slang and acronyms must be correctly configured in application data. ResuMaker ships with correct data for commonly used slang and acronyms.
+
+=== Viewing SoC awards: `fetch-awards`
+
+Lists all awards at SoC in a numbered list.
+Format: `fetch-awards` or `fetch-awards INDEX`
+
+The latter format adds the specified award as a resume Entry.
+
+=== Listing entered commands : `history`
+
+Lists all the commands that you have entered in reverse chronological order. +
+Format: `history`
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
+
+// tag::undoredo[]
+=== Undoing previous command : `undo`
+
+Restores the address book to the state before the previous _undoable_ command was executed. +
+Format: `undo`
+
+[NOTE]
+====
+Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+====
+
+Examples:
+
+* `delete 1` +
+`list` +
+`undo` (reverses the `delete 1` command) +
+
+* `select 1` +
+`list` +
+`undo` +
+The `undo` command fails as there are no undoable commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+
+=== Redoing the previously undone command : `redo`
+
+Reverses the most recent `undo` command. +
+Format: `redo`
+
+Examples:
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+`redo` (reapplies the `clear` command) +
+// end::undoredo[]
+
+=== Clearing all entries : `clear`
+
+Clears all entries from the address book. +
+Format: `clear`
+
+=== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+=== Saving the data
+
+Address book data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
+
+// tag::dataencryption[]
+=== Encrypting data files `[coming in v2.0]`
+
+_{explain how the user can enable/disable data encryption}_
+// end::dataencryption[]
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+
+== Command Summary
+
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Clear* : `clear`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
+e.g. `find James Jake`
+* *List* : `list`
+* *Help* : `help`
+* *Select* : `select INDEX` +
+e.g.`select 2`
+* *History* : `history`
+* *Undo* : `undo`
+* *Redo* : `redo`

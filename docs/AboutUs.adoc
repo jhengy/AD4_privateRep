@@ -1,0 +1,50 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+ResuMaker was developed by the https://github.com/CS2103-AY1819S1-W17-1[CS2103-W-17-1] team. +
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Anubhav
+image::anubh-v.png[width="150", align="left"]
+{empty}[https://github.com/anubh-v[github]] [<<anubhav#, portfolio>>]
+
+Role: SoC Awareness
+
+'''
+
+=== Jiang Hengyuan
+image::jhengy.png[width="150", align="left"]
+{empty}[https://github.com/jhengy[github]] [<<hengyuan#, portfolio>>]
+
+Role: Data Management
+
+'''
+
+=== Marvin Tan Xu Dong
+image::marvintxd.png[width="150", align="left"]
+{empty}[http://github.com/marvintxd[github]] [<<marvin#, portfolio>>]
+
+Role: Resume Configuration Management
+
+'''
+
+=== Ong Shu Peng
+image::ongspxm.png[width="150", align="left"]
+{empty}[http://github.com/ongspxm[github]] [<<shupeng#, portfolio>>]
+
+Role: Data Filtering
+
+'''
+
+=== Gu Wangfan
+image::scalarmotion.png[width="150", align="left"]
+{empty}[http://github.com/scalarmotion[github]] [<<wangfan#, portfolio>>]
+
+Role: Resume Generation
+
+'''
