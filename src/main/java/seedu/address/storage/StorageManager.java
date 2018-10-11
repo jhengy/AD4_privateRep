@@ -74,7 +74,7 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        addressBookStorage.saveAddressBook(addressBook, filePath);
+        addressBookStorage.saveAddressBook(addressBook, filePath); // this actually invokes XMLAddressBookStorage#saveAddressBook
     }
 
 
@@ -83,6 +83,8 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleAddressBookChangedEvent(AddressBookChangedEvent event) { // this method will be invoked automatically whenever an addressbook changed event is raised. In this case, it's raised under ModelManager
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
+            // note that AddressBookChangedEvent encapsulates ReadOnlyAddressBook(this is passed in back at modelManager side where versionedAddressbook is passed in as argument)
+            // nothing more than saving the addressbook data into the local file.
             saveAddressBook(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));

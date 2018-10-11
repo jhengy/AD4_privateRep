@@ -1,9 +1,8 @@
 package seedu.address.ui;
 
-import java.util.logging.Logger;
-
 import com.google.common.eventbus.Subscribe;
 
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -68,6 +67,7 @@ public class PersonListPanel extends UiPart<Region> {
      */
     class PersonListViewCell extends ListCell<Person> {
         @Override
+        // this will be called automatically whenever the predicate of FilteredPersonlist under model manager is set to true
         protected void updateItem(Person person, boolean empty) {
             super.updateItem(person, empty);
 

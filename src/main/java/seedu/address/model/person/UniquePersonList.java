@@ -24,6 +24,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  */
 public class UniquePersonList implements Iterable<Person> {
 
+    // this ObservableList seems to have some link to personlistpanel in UI, any changes in here seems to affect list of person's in UI
     private final ObservableList<Person> internalList = FXCollections.observableArrayList();
 
     /**

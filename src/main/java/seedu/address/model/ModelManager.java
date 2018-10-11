@@ -20,8 +20,14 @@ import seedu.address.model.person.Person;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
+    /* three fields:
+      currentPointer,
+     addressBookStateList: a list of commited AddressBook(which is essentially uniquePersonList),
+      the initial state(another Addressbook passed in as parameter for constructor)
+     */
     private final VersionedAddressBook versionedAddressBook;
-    private final FilteredList<Person> filteredPersons;
+
+    private final FilteredList<Person> filteredPersons; // list of person which is directly related to filteredPersonWindow?
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -74,11 +80,13 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    // updating 1. versionedAddressbook --> just adding a person to persons field of versionedAddressBook, NO Change in currentPointer or ABlist
+    // 2. updateFilteredPersonList -->
     @Override
     public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);  // note that this method invoked from its superclass AddressBook
+        versionedAddressBook.addPerson(person);  // note that this method invoked from its superclass AddressBook, just updates persons field
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();
+        indicateAddressBookChanged();// raises an event to be handled by Event Ce
     }
 
     @Override
@@ -104,6 +112,9 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+        // this is a method from javafx.collections.transformation.FilteredList;
+        // pass in a always true predicate:= unused -> true --> what is the effect of this line?
+        // seems like it will automatically update the personListPanel
     }
 
     //=========== Undo/Redo =================================================================================

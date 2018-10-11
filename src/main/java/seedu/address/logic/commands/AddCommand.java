@@ -55,8 +55,8 @@ public class AddCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.addPerson(toAdd);
-        model.commitAddressBook();
+        model.addPerson(toAdd); // updating the current persons of versionedaddress book and filetedpersons under model managere
+        model.commitAddressBook(); // updating the current pointer and addressbooklist of versionedAddressbook of model
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

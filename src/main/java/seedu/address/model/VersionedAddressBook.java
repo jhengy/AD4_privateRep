@@ -26,6 +26,7 @@ public class VersionedAddressBook extends AddressBook {
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
+        // wrapping the current persons field into an AddressBook and add it into the addressBookList
         addressBookStateList.add(new AddressBook(this));
         currentStatePointer++;
     }

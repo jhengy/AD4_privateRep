@@ -14,7 +14,8 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
+    private final UniquePersonList persons; // unique person list cannot contain duplicate(by Person#isSame)
+    // note that this class is another layer of abstraction for a list of persons
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -33,8 +34,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this();
-        resetData(toBeCopied);
+        this(); // this initializes a new persons
+        resetData(toBeCopied); // this takes persons of toBeCopied(which can be a VersionedAddressBook) and assign it to the persons of this object
     }
 
     //// list overwrite operations
