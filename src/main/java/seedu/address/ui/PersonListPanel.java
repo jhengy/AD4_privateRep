@@ -68,7 +68,9 @@ public class PersonListPanel extends UiPart<Region> {
     class PersonListViewCell extends ListCell<Person> {
         // this class gives the interaction between
         @Override
-        // this will be called automatically whenever the predicate of FilteredPersonlist under model manager is set to true
+        // this will be called automatically
+        // - at the start of initialization
+        // - whenever the predicate of FilteredPersonlist under model manager is set to true
         protected void updateItem(Person person, boolean empty) {
             super.updateItem(person, empty);
 
@@ -76,6 +78,8 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
+                // this is the linkage between PersonList Panel and Person Card class.
+                // whenever we need to update the item, a new PersonCard is created
                 setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
 
             }

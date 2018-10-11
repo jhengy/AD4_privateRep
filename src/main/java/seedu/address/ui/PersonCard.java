@@ -43,7 +43,11 @@ public class PersonCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
-    // containing a list of children as Label Objects. Note that we can change the color of the label
+    // containing a list of children as Label Objects.
+    // Note that we can change the color of the label
+
+    @FXML
+    private Label remark;
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);
@@ -54,6 +58,7 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        remark.setText("this is a default remark!");
     }
 
     @Override
