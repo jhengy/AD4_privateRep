@@ -12,9 +12,9 @@ public class Entry implements Taggable {
     private Set<Tag> tags;
     private ListDescription description;
 
-    public Entry(String sectionType, ListDescription description, Set<Tag> tags) {
+    public Entry(String sectionType, Set<Tag> tags) {
         this.sectionType = sectionType;
-        this.description = description;
+        this.description = new ListDescription();
         this.tags = tags;
     }
 

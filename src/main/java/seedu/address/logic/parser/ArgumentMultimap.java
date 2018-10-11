@@ -14,9 +14,8 @@ import java.util.Optional;
  * can be inserted multiple times for the same prefix.
  */
 public class ArgumentMultimap {
-
-    /** Prefixes mapped to their respective arguments**/
     // value is in the form of a list of Strings as a prefix may be used multiple times by the user, i.e. t/
+    /** Prefixes mapped to their respective arguments**/
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
 
     /**
@@ -41,7 +40,7 @@ public class ArgumentMultimap {
     }
 
     /**
-     * Returns all values of {@code prefix}. --> this is especially useful for returning tags
+     * Returns all values of {@code prefix}.
      * If the prefix does not exist or has no values, this will return an empty list.
      * Modifying the returned list will not affect the underlying data structure of the ArgumentMultimap.
      */

@@ -14,7 +14,6 @@ import seedu.address.model.person.Person;
 
 /**
  * An Immutable AddressBook that is serializable to XML format
- * serializable in a sense it can be written to XML files using pre-defined methods.
  */
 @XmlRootElement(name = "addressbook")
 public class XmlSerializableAddressBook {

@@ -18,7 +18,16 @@ By: `CS2103-W-17-1`      Since: `August 2018`      Licence: `MIT`
 
 == Introduction
 
-ResuMaker is for *computer Science students looking for a fast and flexble way to generate their resumes*. It is especially *optimized for students at the National University of Singapore's School of Computing*. Unlike most resume generation webapps, ResuMaker can tailor your resume to fit the specific requirements of a job.  Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Do you find the need to maintain multiple versions of your resume? +
+Perhaps you find youself reorganising your resumes before making a job application?
+
+If so - welcome to ResuMaker: a *fast and flexible resume generator aimed at computer science students*
+
+Unlike most resume generation webapps, ResuMaker tailors your resume to fit the specific requirements of a job. +
+It can also pick up contextual awareness about your world - with out-of-the-box support for the National University of Singapore's School of Computing. +
+Interested? Jump to the <<Quick Start>> to get started. +
+
+With ResuMaker, let your skills document themselves.
 
 == Quick Start
 
@@ -33,9 +42,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`listEntry* ~work #java`: lists all resume entries under section work and tagged as java
-* **`addEntry`**`~experience` `#java t/The Source Enterprise s/Java Programmer intern d/ May 2010 - Aug 2010`: adds an entry under section experience with assigned title, subheader and duration of internship
-* **`deleteEntry`**`3` : deletes the 3rd entry shown in the current entry list
+* *`listEntry* ~work #java`: Lists all the Work related Entries tagged with `java`
+* **`addEntry`**`~work` `#java t/The Source Enterprise s/Data Science Intern d/ May 2010 - Aug 2010`: Adds a new Entry classified under Work Experiences, with the given title, subheader and duration
+* **`deleteEntry`**`3` : deletes the 3rd Entry shown in the current Entry list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -59,7 +68,7 @@ Format: `help`
 === Adding an entry: `addEntry`
 
 Adds a person to the address book +
-Format: `AddEntry ~SECTION [#TAG]... t/TITLE [s/SUBHEADER] d/DURATION`
+Format: `addEntry ~SECTION [#TAG]... t/TITLE [s/SUBHEADER] d/DURATION`
 
 [TIP]
 An entry can have any number of tags (including 0)
@@ -70,37 +79,38 @@ Examples:
 * `addEntry ~experience #java t/The Source Enterprise s/Java Programmer intern d/ May 2010 - Aug 2010`
 * `addEntry ~awards #java`
 
-=== Adding a bullet point: `addDescription`
+=== Adding a bullet point: `addBullet`
 
-Adds a bullet point under the description of an entry in the resuMaker +
+Adds a bullet point under the description of an entry in the ResuMaker +
 Format: `addBullet CONTENTTOADD`
 
 Examples:
 
-* `addBullet  research design and implement scalable java`
+* `addBullet implement scalable application for data visualization using java`
 
-=== editing a bullet point: `editDescription`
+=== Editing a bullet point: `editBullet`
 
-edits a bullet point under the description of an entry in the resuMaker +
+edits a bullet point under the description of an entry in the ResuMaker +
 Format: `editBullet INDEX EDITTEDCONTENT`
 
 Examples:
 
-* `editBullet 0  research design and implement scalable java application`
+* `editBullet 0  implement scalable application for data visualization using java`
 
 
 === Listing entries : `listEntry`
 
-list particular entries in the resuMaker. Both section and tags are optional - running with no arguments will display all entries. +
+list particular entries in the ResuMaker. Both section and tags are optional - running with no arguments will display all entries. +
 Format: `listEntry [~SECTION] [#TAG]...`
+
 
 Examples:
 
 * `listEntry ~education java`
 
-=== viewing a particular entry : `vieWEntry`
+=== Viewing a particular entry : `viewEntry`
 
-views a particular entry in the resuMaker.+
+views a particular entry in the ResuMaker.+
 Format: `vieWEntry INDEX`
 
 Examples:
@@ -109,7 +119,7 @@ Examples:
 
 === Editing an entry : `editEntry`
 
-Edits an existing entry in the resuMaker. +
+Edits an existing entry in the ResuMaker. +
 Format: `editEntry INDEX [t/TITLE ] [s/SUBHEADER] [d/DURATION] [t/TAG]...`
 
 ****
@@ -127,12 +137,12 @@ edits the entry at index 1 by replacing its title as R company and replace all i
 
 
 
-
-=== deleting an entry: `deleteEntry`
+=== Deleting an entry: `deleteEntry`
 
 Finds persons whose names contain any of the given keywords. +
 Format: `deleteEntry INDEX`
 
+****
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
@@ -176,65 +186,86 @@ Format: `fetch-awards` or `fetch-awards INDEX`
 
 The latter format adds the specified award as a resume Entry.
 
+=== Tag related functions: `tag`
+These are functions to help you manage your tags; namely to view and edit the relevant tags and entries.
+
+==== Viewing currently active tags: `tag status`
+
+Lists all tags currently active, and will be generated in the resume.
+Format: `tag status` lists all the corresponding tags and categories that will appear in the resume.
+
+==== Listing entries under specific tags: `tag list` or `tag ls`
+
+List all entries under specific tags (space separated).
+
+By default, if a tag is not given, all the tags will be displayed.
+Format: `tag ls` list all the tags and the relevant entries for each tag.
+
+Format: `tag ls ~work ~projects #java` list all the `~work` and `~project` entries tagged with `#java`
+
+Entries displayed will be accompanied with their relevant entry id.
+
+==== Add particular tag to entry: `tag add`
+
+Add tags (space separated) to particular entry (identified by index).
+
+Duplicated tags will be ignored
+
+Format: `tag add 10 ~work #java` add tag `#java` and category `~work` to entry 10.
+
+==== Remove particular tag from entry: `tag remove` or `tag rm`
+
+Remove tags (space separated) from a particular entry (identified by index).
+
+By default, if no tags given, all tags will be removed from the entry.
+
+Format: `tag rm 1 ~work #java` remove category `~work` and tag `#java` from entry 1.
+
+Format: `tag rm 10` remove all tags and categories from entry 10.
+
+==== Retagging a particular entry: `tag retag` or `tag rt`
+
+Remove all current tags and replace it with current tags (space separated).
+
+Format: `tag rt 1 ~work #java` remove all tags and categories from entry 1, adding tag `#java` and category `~work` to entry 1.
+
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
+
+=== Viewing template : `viewtemplate`
+
+Gives a preview of the template. +
+Format: `viewtemplate FILEPATH`
+
+Examples:
+
+* `viewtemplate google.txt` +
+Previews the template specified in `google.txt`
 
 [NOTE]
 ====
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
-// tag::undoredo[]
-=== Undoing previous command : `undo`
+=== Generating Resume : `make`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
+Generates a Resume in Markdown format, using either the _template_ with the given file name or a default format. +
+Format: `make` or `make TEMPLATE_FILENAME`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+The user can supply the name of a _template file_ they created themselves or a SoC-focused preset _template_ supplied by the program.
 ====
 
 Examples:
 
-* `delete 1` +
-`list` +
-`undo` (reverses the `delete 1` command) +
+* `make` +
+Generates a Resume based on the default format using saved entries.
 
-* `select 1` +
-`list` +
-`undo` +
-The `undo` command fails as there are no undoable commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-
-=== Redoing the previously undone command : `redo`
-
-Reverses the most recent `undo` command. +
-Format: `redo`
-
-Examples:
-
-* `delete 1` +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-
-* `delete 1` +
-`redo` +
-The `redo` command fails as there are no `undo` commands executed previously.
-
-* `delete 1` +
-`clear` +
-`undo` (reverses the `clear` command) +
-`undo` (reverses the `delete 1` command) +
-`redo` (reapplies the `delete 1` command) +
-`redo` (reapplies the `clear` command) +
-// end::undoredo[]
+* `make SEP.txt` +
+Generates a Resume based on the 'SEP.txt' _template file_ (which could be user created or a preset) using saved entries.
 
 === Clearing all entries : `clear`
 
@@ -278,5 +309,11 @@ e.g. `find James Jake`
 * *Select* : `select INDEX` +
 e.g.`select 2`
 * *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+* *Tag Status*: `tag status`
+* *Tag List*: `tag ls TAG [MORE_TAGS]` +
+e.g. `tag ls ~work #java`
+* *Tag Remove*: `tag rm INDEX TAG [MORE_TAGS]` +
+e.g. `tag rm 10 ~work #python`
+* *Tag Retag*: `tag tg INDEX TAG [MORE_TAGS]` +
+e.g. `tag rt 10 ~project #web`
+* *Generate Resume* : `make`

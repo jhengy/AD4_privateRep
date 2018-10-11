@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddEntryCommand;
 import seedu.address.logic.commands.ClearCommand;
@@ -27,7 +28,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class AddressBookParser {
 
     /**
-     * Used for initial separation of command word and args.--> this is used to generate a matcher
+     * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
@@ -42,13 +43,11 @@ public class AddressBookParser {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-        } // throw invalid output
+        }// throw invalid output
 
         // arguments refer to the text input in the command box apart from the 1st word
         final String commandWord = matcher.group("commandWord");
         final String arguments = matcher.group("arguments");
-        /*System.out.println("command word is: " + commandWord);
-        System.out.println("arguements are : " + arguments);*/
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:

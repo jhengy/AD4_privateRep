@@ -22,7 +22,7 @@ public abstract class ComponentManager {
         eventsCenter.registerHandler(this);
     }
 
-    protected void raise(BaseEvent event) {
+    protected void raise(BaseEvent event) { // this connects to the EventCenter and
         eventsCenter.post(event);
     }
 }

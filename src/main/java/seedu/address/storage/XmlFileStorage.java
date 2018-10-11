@@ -9,17 +9,17 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.XmlUtil;
 
 /**
- * contains static methods that Stores addressbook data in an XML file
- * i.e. conversion between XmlSerializableAddressBook to file and vice versa
+ * Stores addressbook data in an XML file
  */
 public class XmlFileStorage {
+    // this is a higher level class that saves a Xmlserilizable object into a file defined by the path
     /**
      * Saves the given addressbook data to the specified file.
      */
     public static void saveDataToFile(Path file, XmlSerializableAddressBook addressBook)
             throws FileNotFoundException {
         try {
-            XmlUtil.saveDataToFile(file, addressBook);
+            XmlUtil.saveDataToFile(file, addressBook); // XmlUtil.saveDataToFile works if addressbook encapsulates a List<XmlAdaptedPerson>, where XmlAdaptedPerson is defined in a certain format
         } catch (JAXBException e) {
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }

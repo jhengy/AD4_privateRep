@@ -10,10 +10,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
-import java.util.ArrayList;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
 import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
@@ -95,9 +95,5 @@ public class PersonTest {
         // different tags -> returns false
         editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
         assertFalse(ALICE.equals(editedAlice));
-    }
-    // wrote a test to test out expected exceptions
-    @Test(expected = IndexOutOfBoundsException.class) public void test() {
-        new ArrayList<Object>().get(0);
     }
 }

@@ -5,13 +5,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.function.Predicate;
 import java.util.logging.Logger;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.entry.MajorEntry;
 import seedu.address.model.person.Person;
 
 /**
@@ -20,7 +20,7 @@ import seedu.address.model.person.Person;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final VersionedAddressBook versionedAddressBook; // this encapsulates a persons list and also list of list of persons
+    private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
 
     /**
@@ -53,13 +53,19 @@ public class ModelManager extends ComponentManager implements Model {
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(versionedAddressBook));
+        raise(new AddressBookChangedEvent(versionedAddressBook)); // raising event via EventCenter, which will invoke the handleAddressBookChangedEvent method under StorageManager
     }
 
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
         return versionedAddressBook.hasPerson(person);
+    }
+
+    @Override
+    // to be modified
+    public boolean hasEntry(MajorEntry entry) {
+        return false;
     }
 
     @Override
@@ -70,7 +76,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person); // note that this method invoked from its superclass AddressBook
+        versionedAddressBook.addPerson(person);  // note that this method invoked from its superclass AddressBook
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }

@@ -21,9 +21,10 @@ import seedu.address.model.tag.Tag;
  * JAXB-friendly version of the Person.
  */
 public class XmlAdaptedPerson {
-
+    // note that this class is defined to follow a certain format, so we have @XmlElement annotation to to denote it
+    // this allows XmlUtils.saveDataToFile(filepath, listOfXmlAdaptedPerson) to write all fields with @XmlElement to be written to the file indicated by filepath
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
-
+    // note that these are all strings
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
@@ -67,7 +68,7 @@ public class XmlAdaptedPerson {
         address = source.getAddress().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()); // this line is a terminal operation that converts stream of XmlAdaptedTag to a list
     }
 
     /**

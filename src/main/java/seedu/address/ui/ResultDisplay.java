@@ -1,8 +1,9 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
 
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -14,7 +15,6 @@ import seedu.address.commons.events.ui.NewResultAvailableEvent;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.
- * basically the messgage shown at the header is the MESSAGE_SUCCESS field of command classes
  */
 public class ResultDisplay extends UiPart<Region> {
 

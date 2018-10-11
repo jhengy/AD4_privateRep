@@ -23,19 +23,17 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
-    // an empty command history
+
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
-    // Returns a rule that expects no exception to be thrown (identical to behavior without this rule).
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
 
     private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class); // the rule expects a nullpointerexception to be thrown
+        thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
 

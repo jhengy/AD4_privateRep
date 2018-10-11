@@ -12,11 +12,11 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");// note that UserPref stores the file path of the xml to write the data onto
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
-    }
+    } // it also stores GuiSettings
 
     public GuiSettings getGuiSettings() {
         return guiSettings == null ? new GuiSettings() : guiSettings;
