@@ -29,7 +29,7 @@ public class PersonListPanel extends UiPart<Region> {
         setConnections(personList);
         registerAsAnEventHandler(this);
     }
-
+    // set connections between PersonListPanel and PersonListViewCell
     private void setConnections(ObservableList<Person> personList) {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
@@ -66,6 +66,7 @@ public class PersonListPanel extends UiPart<Region> {
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
     class PersonListViewCell extends ListCell<Person> {
+        // this class gives the interaction between
         @Override
         // this will be called automatically whenever the predicate of FilteredPersonlist under model manager is set to true
         protected void updateItem(Person person, boolean empty) {
@@ -76,6 +77,7 @@ public class PersonListPanel extends UiPart<Region> {
                 setText(null);
             } else {
                 setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+
             }
         }
     }

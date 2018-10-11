@@ -16,14 +16,14 @@ import seedu.address.commons.events.ui.NewResultAvailableEvent;
  * A ui for the status bar that is displayed at the header of the application.
  */
 public class ResultDisplay extends UiPart<Region> {
-
+    // this refers to the box just below the command box
     private static final Logger logger = LogsCenter.getLogger(ResultDisplay.class);
     private static final String FXML = "ResultDisplay.fxml";
 
     private final StringProperty displayed = new SimpleStringProperty("");
 
     @FXML
-    private TextArea resultDisplay;
+    private TextArea resultDisplay; // this TextArea instance similarly can be styled
 
     public ResultDisplay() {
         super(FXML);

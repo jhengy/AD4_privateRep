@@ -12,8 +12,9 @@ import seedu.address.model.person.Person;
  */
 public class PersonCard extends UiPart<Region> {
     // this is a class encapsulating all things shown for each person in the personlistpanel
+    // including some form of formatting
     // FXML
-    private static final String FXML = "PersonListCard.fxml";
+    private static final String FXML = "PersonListCard.fxml"; // this includes the DOM of the PersonCard
 
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
@@ -25,6 +26,9 @@ public class PersonCard extends UiPart<Region> {
 
     public final Person person;
 
+    /*
+    a list of all FXML elements
+     */
     @FXML
     private HBox cardPane;
     @FXML
@@ -39,6 +43,7 @@ public class PersonCard extends UiPart<Region> {
     private Label email;
     @FXML
     private FlowPane tags;
+    // containing a list of children as Label Objects. Note that we can change the color of the label
 
     public PersonCard(Person person, int displayedIndex) {
         super(FXML);

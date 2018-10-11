@@ -1,18 +1,16 @@
 package seedu.address.ui;
 
+import com.google.common.eventbus.Subscribe;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.Clock;
 import java.util.Date;
 import java.util.logging.Logger;
-
-import org.controlsfx.control.StatusBar;
-
-import com.google.common.eventbus.Subscribe;
-
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
+import org.controlsfx.control.StatusBar;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 
@@ -20,7 +18,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
  * A ui for the status bar that is displayed at the footer of the application.
  */
 public class StatusBarFooter extends UiPart<Region> {
-
+    // this is the statusBarFooter
     public static final String SYNC_STATUS_INITIAL = "Not updated yet in this session";
     public static final String SYNC_STATUS_UPDATED = "Last Updated: %s";
 
@@ -74,6 +72,7 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     @Subscribe
+    // AddressBookChangedEvent raised by model will be handled here
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
         long now = clock.millis();
         String lastUpdated = new Date(now).toString();
