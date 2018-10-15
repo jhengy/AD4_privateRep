@@ -20,6 +20,8 @@ public class VersionedAddressBook extends AddressBook {
         currentStatePointer = 0;
     }
 
+    // commit 1. flush all commits after current pointer
+    // 2. adds a new addressbook state 3. increase the current pointer
     /**
      * Saves a copy of the current {@code AddressBook} state at the end of the state list.
      * Undone states are removed from the state list.
@@ -35,10 +37,12 @@ public class VersionedAddressBook extends AddressBook {
         addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
     }
 
+    // note: BOTH undo and redo ONLY shifts current pointer and updates the persons of this versionedAddressBook
     /**
      * Restores the address book to its previous state.
      */
     public void undo() {
+        // note: undo redo
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }

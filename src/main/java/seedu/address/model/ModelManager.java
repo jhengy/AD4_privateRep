@@ -27,7 +27,9 @@ public class ModelManager extends ComponentManager implements Model {
      */
     private final VersionedAddressBook versionedAddressBook;
 
-    private final FilteredList<Person> filteredPersons; // list of person which is directly related to filteredPersonWindow?
+    // list of person which is connected to PersonListPanel via getFilteredPersonList in this class
+    // which sends itself to PersonListPannel
+    private final FilteredList<Person> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,7 +41,7 @@ public class ModelManager extends ComponentManager implements Model {
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());// essentially contains reference to persons field of versionedAddressBook
     }
 
     public ModelManager() {
@@ -84,9 +86,14 @@ public class ModelManager extends ComponentManager implements Model {
     // 2. updateFilteredPersonList -->
     @Override
     public void addPerson(Person person) {
-        versionedAddressBook.addPerson(person);  // note that this method invoked from its superclass AddressBook, just updates persons field
+        // note that this method invoked from its superclass AddressBook, just updates persons field
+        // this line seems to impact filteredPersonList, as it contains reference to the persons field of versionedAddressBook
+        versionedAddressBook.addPerson(person); // after this line, the personcards of all Person will already be listed
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        indicateAddressBookChanged();// raises an event to be handled by Event Ce
+        indicateAddressBookChanged();// raises an event to be handled by Event Center
+
+        //versionedAddressBook.resetData(new AddressBook());// to test what happens if we change the persons field of versionedAddressBook to contain nothing, will it affect the UI?
+        // YES!! So PersonCard in UI is responsive to any changes to persons field(which will cause changes to filteredlist) of ModelManager
     }
 
     @Override
@@ -103,6 +110,7 @@ public class ModelManager extends ComponentManager implements Model {
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
      * {@code versionedAddressBook}
      */
+    // this method is used to send filteredPersons to Logicmanager which will send it to MainWindow, which will send it to PersonListPannel
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return FXCollections.unmodifiableObservableList(filteredPersons);

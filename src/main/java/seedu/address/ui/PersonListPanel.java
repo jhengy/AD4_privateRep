@@ -26,10 +26,10 @@ public class PersonListPanel extends UiPart<Region> {
 
     public PersonListPanel(ObservableList<Person> personList) {
         super(FXML);
-        setConnections(personList);
+        setConnections(personList); // this connects personList from filteredPerson of ModelManager to a particular Person card
         registerAsAnEventHandler(this);
     }
-    // set connections between PersonListPanel and PersonListViewCell
+    // set connections between PersonListPanel: ListView<Person> and PersonListViewCell
     private void setConnections(ObservableList<Person> personList) {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
@@ -66,9 +66,9 @@ public class PersonListPanel extends UiPart<Region> {
      * Custom {@code ListCell} that displays the graphics of a {@code Person} using a {@code PersonCard}.
      */
     class PersonListViewCell extends ListCell<Person> {
-        // this class gives the interaction between
+        // this class gives the interaction between Model and PersonListPannel!!
         @Override
-        // this will be called automatically
+        // this will be called automatically, to sync between model FilteredList/ versionedAddress Book
         // - at the start of initialization
         // - whenever the predicate of FilteredPersonlist under model manager is set to true
         protected void updateItem(Person person, boolean empty) {
