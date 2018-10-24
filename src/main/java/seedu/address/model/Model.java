@@ -3,7 +3,6 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.entry.MajorEntry;
 import seedu.address.model.person.Person;
 
 /**
@@ -24,7 +23,6 @@ public interface Model {
      */
     boolean hasPerson(Person person);
 
-    boolean hasEntry(MajorEntry entry);
 
     /**
      * Deletes the given person.

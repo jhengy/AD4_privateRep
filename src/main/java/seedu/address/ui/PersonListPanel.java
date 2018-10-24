@@ -1,8 +1,9 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
 
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -30,6 +31,8 @@ public class PersonListPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
     // set connections between PersonListPanel: ListView<Person> and PersonListViewCell
+    // this method sets the connection between filteredList in model to FXML component
+    // personsListView in this class
     private void setConnections(ObservableList<Person> personList) {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
@@ -78,8 +81,8 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                // this is the linkage between PersonList Panel and Person Card class.
-                // whenever we need to update the item, a new PersonCard is created
+                // this line connects each person in filteredList under model to create a newPersonCard
+                // whenever a person in filteredPerson List is refreshed, a new PersonCard is created
                 setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
 
             }

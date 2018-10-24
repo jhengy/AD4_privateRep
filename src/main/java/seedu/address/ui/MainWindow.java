@@ -59,7 +59,7 @@ public class MainWindow extends UiPart<Stage> {
     private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-        super(FXML, primaryStage);
+        super(FXML, primaryStage); // note that this step reads all data from MainWindow.fxml and assigns different ui placeholder in the app
 
         // Set dependencies
         this.primaryStage = primaryStage;
@@ -120,8 +120,12 @@ public class MainWindow extends UiPart<Stage> {
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        browserPlaceholder.getChildren().add(browserPanel.getRoot()); // add BrowserPanel Node(FXML element) to the placeholder
 
+        //add PersonListPanel Node(FXML element) to the personListPanelPlaceholder
+        // the following line sets the link between filteredPersonList under Model Manager
+        // and PersonListPanel which is an UI component to be displayed. Any change in
+        // filteredPersonList in Model will be reflected in UI
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
 
@@ -147,6 +151,7 @@ public class MainWindow extends UiPart<Stage> {
      * Sets the default size based on user preferences.
      */
     private void setWindowDefaultSize(UserPrefs prefs) {
+        // this method sets the UI configuration as specified by the userPref file initialized under MainApp()
         primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
         primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
         if (prefs.getGuiSettings().getWindowCoordinates() != null) {

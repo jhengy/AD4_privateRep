@@ -5,13 +5,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.function.Predicate;
 import java.util.logging.Logger;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.entry.MajorEntry;
 import seedu.address.model.person.Person;
 
 /**
@@ -28,7 +28,15 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
 
     // list of person which is connected to PersonListPanel via getFilteredPersonList in this class
-    // which sends itself to PersonListPannel
+    // which sends itself to PersonListPanel, the element wrapped in the list is referenced to persons field
+    // of versionedAddressBook, so any modification to fields of any Person in versionedAddressBook.persons will
+    // modify filteredPersons, which subsequently modifies UI PersonListPanel
+    //
+    // However, FilteredList also allows filtering of the persons by passing in predicates .
+    // can think of it as when setPredicate(p), filteredPersons will point to Person instance in persons which
+    // satisfies p
+    // this allows rooms for us to display a filteredList of persons in UI, without modifying persons in versionedAddressBook
+    //
     private final FilteredList<Person> filteredPersons;
 
     /**
@@ -70,11 +78,6 @@ public class ModelManager extends ComponentManager implements Model {
         return versionedAddressBook.hasPerson(person);
     }
 
-    @Override
-    // to be modified
-    public boolean hasEntry(MajorEntry entry) {
-        return false;
-    }
 
     @Override
     public void deletePerson(Person target) {

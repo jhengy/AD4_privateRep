@@ -22,6 +22,8 @@ public class VersionedAddressBook extends AddressBook {
 
     // commit 1. flush all commits after current pointer
     // 2. adds a new addressbook state 3. increase the current pointer
+    // implication: whenever the versionedAddressBook is committed, you cannot redo as the
+    // current pointer will always point to the tail
     /**
      * Saves a copy of the current {@code AddressBook} state at the end of the state list.
      * Undone states are removed from the state list.

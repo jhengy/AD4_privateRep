@@ -82,9 +82,10 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
-        model.updatePerson(personToEdit, editedPerson);
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        model.commitAddressBook();
+        // the line below alone is enough to trigger a change in the ui display
+        model.updatePerson(personToEdit, editedPerson); // internally persons of versionedAddressBook will be modified which is equal to the personToEdit is replaced by editedPerson, may throw exception if person to edit is somehow not in the list
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS); // basically returns whatever filteredPerson is pointing to, i.e. the persons under versionedAddressbOOK
+        model.commitAddressBook(); // commit merely takes a snap shot of persons and add it to the statelist and increase the state pointer
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
@@ -127,6 +128,7 @@ public class EditCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditPersonDescriptor {
+        // just a class to store the edited content input by the user
         private Name name;
         private Phone phone;
         private Email email;
