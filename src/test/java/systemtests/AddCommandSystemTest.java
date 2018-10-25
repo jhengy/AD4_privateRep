@@ -205,6 +205,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         Model expectedModel = getModel();
         expectedModel.addPerson(toAdd);
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
+        System.out.println(expectedResultMessage);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }

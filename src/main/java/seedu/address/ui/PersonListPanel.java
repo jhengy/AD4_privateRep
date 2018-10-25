@@ -22,11 +22,14 @@ public class PersonListPanel extends UiPart<Region> {
     private static final String FXML = "PersonListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
+    // note that the ListVie<Person> is tied to ObservableList<Person>, which comes from Model
+    // ListCell is the class that encapsulates each cell displayed in the listview.
+    // ListCell `listens' to any change from listView(when ObservableList changes), and calls its update() method
     @FXML
     private ListView<Person> personListView;
 
     public PersonListPanel(ObservableList<Person> personList) {
-        super(FXML);
+        super(FXML); // this loads the layout from FXML file to the FXML control element ListView
         setConnections(personList); // this connects personList from filteredPerson of ModelManager to a particular Person card
         registerAsAnEventHandler(this);
     }
@@ -34,6 +37,7 @@ public class PersonListPanel extends UiPart<Region> {
     // this method sets the connection between filteredList in model to FXML component
     // personsListView in this class
     private void setConnections(ObservableList<Person> personList) {
+        // personListView.setOrientation(Orientation.HORIZONTAL); // we can set the orientation of te listview
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();

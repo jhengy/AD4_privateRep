@@ -27,7 +27,7 @@ public class PersonCard extends UiPart<Region> {
     public final Person person;
 
     /*
-    a list of all FXML elements
+    a list of all FXML elements, this class basically encapsulates all these elements
      */
     @FXML
     private HBox cardPane;
